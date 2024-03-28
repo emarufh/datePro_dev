@@ -31,7 +31,7 @@ const PasswordScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView>
       <View style={{marginTop: 90, marginHorizontal: 20}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View
@@ -91,7 +91,7 @@ const PasswordScreen = () => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>

@@ -19,11 +19,11 @@ import {
 } from '../registrationUtils';
 
 const HomeTownScreen = () => {
-  const navigation = useNavigation();
   const [hometown, setHometown] = useState('');
+  const navigation = useNavigation();
 
   useEffect(() => {
-    getRegistrationProgress('HomeTown').then(progressData => {
+    getRegistrationProgress('Hometown').then(progressData => {
       if (progressData) {
         setHometown(progressData.hometown || '');
       }
@@ -33,7 +33,7 @@ const HomeTownScreen = () => {
   const handleNext = () => {
     if (hometown.trim() !== '') {
       // Save the current progress data including the name
-      saveRegistrationProgress('HomeTown', {hometown});
+      saveRegistrationProgress('Hometown', {hometown});
     }
     // Navigate to the next screen
     navigation.navigate('Photos');
@@ -107,5 +107,3 @@ const HomeTownScreen = () => {
 };
 
 export default HomeTownScreen;
-
-const styles = StyleSheet.create({});

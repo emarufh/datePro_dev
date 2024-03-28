@@ -68,7 +68,7 @@ const BirthScreen = () => {
       saveRegistrationProgress('Birth', {dateOfBirth});
 
       // Navigate to the next screen
-      navigation.navigate('Gender'); // Or navigate to the appropriate screen
+      navigation.navigate('Gender');
     } else {
       // Handle the case where the user hasn't provided all the date values
       // You can display a message or take appropriate action here
@@ -76,7 +76,7 @@ const BirthScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView>
       <View style={{marginTop: 90, marginHorizontal: 20}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View
@@ -179,7 +179,7 @@ const BirthScreen = () => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>

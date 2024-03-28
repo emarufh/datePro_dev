@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
@@ -10,7 +9,7 @@ import {
 import React, {useState, useEffect} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+// import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import {
   getRegistrationProgress,
@@ -74,8 +73,8 @@ const TypeScreen = () => {
         </Text>
 
         <Text style={{marginTop: 30, fontSize: 15, color: 'gray'}}>
-          Hinge users are matched based on these three gender groups. You can
-          add more about gender after
+          datePro users are matched based on these three gender groups. You can
+          add more about gender later
         </Text>
 
         <View style={{marginTop: 30, flexDirection: 'column', gap: 12}}>
@@ -141,7 +140,7 @@ const TypeScreen = () => {
           </View>
         </View>
 
-        <View
+        {/* <View
           style={{
             marginTop: 30,
             flexDirection: 'row',
@@ -150,7 +149,7 @@ const TypeScreen = () => {
           }}>
           <AntDesign name="checksquare" size={26} color="#581845" />
           <Text style={{fontSize: 15}}>Visible on profile</Text>
-        </View>
+        </View> */}
         <TouchableOpacity
           onPress={handleNext}
           activeOpacity={0.8}
@@ -158,7 +157,7 @@ const TypeScreen = () => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>
@@ -168,5 +167,3 @@ const TypeScreen = () => {
 };
 
 export default TypeScreen;
-
-const styles = StyleSheet.create({});

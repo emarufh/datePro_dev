@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
@@ -18,8 +17,9 @@ import {
 } from '../registrationUtils';
 
 const LookingForScreen = () => {
-  const [lookingFor, setLookingFor] = useState([]);
   const navigation = useNavigation();
+  const [lookingFor, setLookingFor] = useState([]);
+
   useEffect(() => {
     getRegistrationProgress('LookingFor').then(progressData => {
       if (progressData) {
@@ -38,7 +38,7 @@ const LookingForScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView>
       <View style={{marginTop: 90, marginHorizontal: 20}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View
@@ -198,7 +198,7 @@ const LookingForScreen = () => {
           </View>
         </View>
 
-        <View
+        {/* <View
           style={{
             marginTop: 30,
             flexDirection: 'row',
@@ -207,7 +207,7 @@ const LookingForScreen = () => {
           }}>
           <AntDesign name="checksquare" size={26} color="#581845" />
           <Text style={{fontSize: 15}}>Visible on profile</Text>
-        </View>
+        </View> */}
         <TouchableOpacity
           onPress={handleNext}
           activeOpacity={0.8}
@@ -215,7 +215,7 @@ const LookingForScreen = () => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>
@@ -225,5 +225,3 @@ const LookingForScreen = () => {
 };
 
 export default LookingForScreen;
-
-const styles = StyleSheet.create({});

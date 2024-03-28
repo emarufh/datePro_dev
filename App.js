@@ -7,11 +7,18 @@
 
 import React from 'react';
 import StackNavigator from './navigation/StackNavigator';
+import {ModalPortal} from 'react-native-modals';
+import {AuthProvider} from './context/AuthContext';
 
 function App() {
   return (
     <>
-      <StackNavigator />
+      <AuthProvider>
+        <>
+          <StackNavigator />
+          <ModalPortal />
+        </>
+      </AuthProvider>
     </>
   );
 }

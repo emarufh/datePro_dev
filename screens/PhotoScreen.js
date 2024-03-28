@@ -10,10 +10,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {useNavigation} from '@react-navigation/native';
 import {
   getRegistrationProgress,
   saveRegistrationProgress,
@@ -49,7 +49,7 @@ const PhotoScreen = () => {
     saveRegistrationProgress('Photos', {imageUrls});
 
     // Navigate to the next screen
-    navigation.navigate('Prompts'); // Navigate to the appropriate screen
+    navigation.navigate('PreFinal');
   };
 
   return (
@@ -82,14 +82,13 @@ const PhotoScreen = () => {
             fontFamily: 'GeezaPro-Bold',
             marginTop: 15,
           }}>
-          Pick your videos and photos
+          Pick your photos
         </Text>
         <View style={{marginTop: 20}}>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-
               gap: 20,
             }}>
             {imageUrls.slice(0, 3).map((url, index) => (
@@ -180,10 +179,9 @@ const PhotoScreen = () => {
               flexDirection: 'row',
               alignItems: 'center',
               gap: 5,
-              paddingVertical: 5,
               borderRadius: 5,
               marginTop: 10,
-              backgroundColor: '#DCDCDC',
+              backgroundColor: '#ffffff',
             }}>
             <EvilIcons
               style={{marginLeft: 8}}
@@ -195,9 +193,10 @@ const PhotoScreen = () => {
               value={imageUrl}
               onChangeText={text => setImageUrl(text)}
               style={{color: 'gray', marginVertical: 10, width: 300}}
-              placeholder="enter your image url"
+              placeholder="Enter your image url"
             />
           </View>
+          <View style={{marginBottom: 8}}></View>
           <Button
             onPress={handleAddImage}
             style={{marginTop: 5}}
@@ -206,14 +205,13 @@ const PhotoScreen = () => {
         </View>
 
         <TouchableOpacity
-          //   onPress={() => navigation.navigate('Prompts')}
           onPress={handleNext}
           activeOpacity={0.8}
           style={{marginTop: 30, marginLeft: 'auto'}}>
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>

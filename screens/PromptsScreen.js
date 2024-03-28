@@ -1,11 +1,4 @@
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -22,8 +15,9 @@ import {StackActions} from '@react-navigation/native';
 const PromptsScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  console.log('he', route?.params?.PromptsScreen);
   const [userData, setUserData] = useState();
+
+  console.log('he', route?.params?.PromptsScreen);
 
   const getAllUserData = async () => {
     try {
@@ -87,7 +81,7 @@ const PromptsScreen = () => {
     saveRegistrationProgress('Prompts', {prompts: route.params.prompts});
 
     // Navigate to the next screen
-    navigation.navigate('PreFinal'); // Navigate to the appropriate screen
+    navigation.navigate('PreFinal');
   };
 
   return (
@@ -128,6 +122,7 @@ const PromptsScreen = () => {
             route?.params?.prompts?.map((item, index) => (
               <Pressable
                 onPress={() => navigation.navigate('ShowPrompts')}
+                key={index}
                 style={{
                   borderColor: '#707070',
                   borderWidth: 2,
@@ -360,7 +355,7 @@ const PromptsScreen = () => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>
@@ -370,5 +365,3 @@ const PromptsScreen = () => {
 };
 
 export default PromptsScreen;
-
-const styles = StyleSheet.create({});

@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
@@ -18,7 +17,9 @@ import {
 } from '../registrationUtils';
 
 const DatingScreen = () => {
+  const navigation = useNavigation();
   const [datingPreferences, setDatingPreferences] = useState([]);
+
   const chooseOption = option => {
     if (datingPreferences.includes(option)) {
       setDatingPreferences(
@@ -29,7 +30,6 @@ const DatingScreen = () => {
     }
   };
 
-  const navigation = useNavigation();
   useEffect(() => {
     // Fetch the registration progress data for the "Dating" screen
     getRegistrationProgress('Dating').then(progressData => {
@@ -49,7 +49,7 @@ const DatingScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView>
       <View style={{marginTop: 90, marginHorizontal: 20}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View
@@ -139,7 +139,7 @@ const DatingScreen = () => {
           </View>
         </View>
 
-        <View
+        {/* <View
           style={{
             marginTop: 30,
             flexDirection: 'row',
@@ -148,7 +148,7 @@ const DatingScreen = () => {
           }}>
           <AntDesign name="checksquare" size={26} color="#581845" />
           <Text style={{fontSize: 15}}>Visible on profile</Text>
-        </View>
+        </View> */}
         <TouchableOpacity
           onPress={handleNext}
           activeOpacity={0.8}
@@ -156,7 +156,7 @@ const DatingScreen = () => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>
@@ -166,5 +166,3 @@ const DatingScreen = () => {
 };
 
 export default DatingScreen;
-
-const styles = StyleSheet.create({});

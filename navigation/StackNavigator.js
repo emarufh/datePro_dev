@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
@@ -25,11 +25,29 @@ import PhotoScreen from '../screens/PhotoScreen';
 import PromptsScreen from '../screens/PromptsScreen';
 import ShowPromptsScreen from '../screens/ShowPromptsScreen';
 import PreFinalScreen from '../screens/PreFinalScreen';
-import WelcomeScreen from '../screens/WelcomeScreen';
+import {ActivityIndicator, View} from 'react-native';
+import {AuthContext} from '../context/AuthContext';
+import ProfileDetailsScreen from '../screens/ProfileDetailsScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
+
+  const {isLoading, token} = useContext(AuthContext);
+  // Ensure token is properly initialized
+  console.log('token:', token);
+
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size={'large'} />
+      </View>
+    );
+  }
+
+  // Check if token is null or empty
+  console.log('Is token null or empty?', token === null || token === '');
 
   const BottomTabs = () => {
     return (
@@ -112,13 +130,13 @@ const StackNavigator = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen
-          name="BasicInfo"
-          component={BasicInfoScreen}
+          name="Login"
+          component={LoginScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Welcome"
-          component={WelcomeScreen}
+          name="BasicInfo"
+          component={BasicInfoScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen
@@ -203,13 +221,18 @@ const StackNavigator = () => {
           component={BottomTabs}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="ProfileDetails"
+          component={ProfileDetailsScreen}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     );
   };
 
   return (
     <NavigationContainer>
-      <AuthStack />
+      {token === null || token === '' ? <AuthStack /> : <MainStack />}
     </NavigationContainer>
   );
 };

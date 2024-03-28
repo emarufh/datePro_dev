@@ -9,13 +9,15 @@ const BasicInfoScreen = () => {
 
   return (
     <SafeAreaView>
-      <View style={{marginTop: 80}}>
+      <View
+        style={{marginTop: 80, alignItems: 'center', justifyContent: 'center'}}>
         <Text
           style={{
             fontSize: 35,
             fontWeight: 'bold',
             fontFamily: 'GeezaPro-Bold',
             marginLeft: 20,
+            textAlign: 'center',
           }}>
           You're one of a kind.
         </Text>
@@ -26,6 +28,7 @@ const BasicInfoScreen = () => {
             fontFamily: 'GeezaPro-Bold',
             marginLeft: 20,
             marginTop: 10,
+            textAlign: 'center',
           }}>
           You're profile should be too.
         </Text>
@@ -48,9 +51,15 @@ const BasicInfoScreen = () => {
       </View>
 
       <View
-        style={{padding: 24, paddingLeft: 40, paddingRight: 40, width: '100%'}}>
+        style={{
+          padding: 24,
+          paddingLeft: 40,
+          paddingRight: 40,
+          width: '100%',
+          alignItems: 'center',
+        }}>
         <Pressable
-          onPress={() => navigation.navigate('Welcome')}
+          onPress={() => navigation.navigate('Name')}
           style={{
             backgroundColor: '#f26322',
             paddingTop: 16,
@@ -72,7 +81,7 @@ const BasicInfoScreen = () => {
             }}>
             Get Started
           </Text>
-          {/* <ArrowUpRightIcon color={'white'} size={20} strokeWidth={2.5} /> */}
+          <ArrowUpRightIcon color={'white'} size={20} strokeWidth={2.5} />
         </Pressable>
       </View>
     </SafeAreaView>

@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
@@ -91,6 +90,7 @@ const ShowPromptsScreen = () => {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
+
   const openModal = item => {
     setModalVisible(!isModalVisible);
 
@@ -110,7 +110,13 @@ const ShowPromptsScreen = () => {
       }); // Navigate away from the screen when prompts reach three
     }
   };
+
+  const handleCross = () => {
+    navigation.navigate('Prompts');
+  };
+
   console.log('question', prompts);
+
   return (
     <>
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -129,7 +135,9 @@ const ShowPromptsScreen = () => {
             Prompts
           </Text>
 
-          <Entypo name="cross" size={22} color="black" />
+          <Pressable onPress={handleCross}>
+            <Entypo name="cross" size={22} color="black" />
+          </Pressable>
         </View>
 
         <View
@@ -193,6 +201,7 @@ const ShowPromptsScreen = () => {
           ))}
         </View>
       </SafeAreaView>
+
       <BottomModal
         onBackdropPress={() => setModalVisible(!isModalVisible)}
         onHardwareBackPress={() => setModalVisible(!isModalVisible)}
@@ -241,5 +250,3 @@ const ShowPromptsScreen = () => {
 };
 
 export default ShowPromptsScreen;
-
-const styles = StyleSheet.create({});

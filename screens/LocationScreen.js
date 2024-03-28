@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   Image,
   TouchableOpacity,
+  TextInput,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
@@ -28,8 +29,8 @@ const LocationScreen = () => {
   console.log('location', location);
   const [coordinates] = useState([
     {
-      latitude: 12.9716,
-      longitude: 77.5946,
+      latitude: 23.7778,
+      longitude: 90.4112,
     },
     {
       latitude: 13.0451,
@@ -37,29 +38,29 @@ const LocationScreen = () => {
     },
   ]);
 
-  useEffect(() => {
-    // Get the current location
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        setRegion({...region, latitude, longitude});
-        // Use reverse geocoding to get the location name from latitude and longitude
-        fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDJqEKwV49K0ycxK_os6f9ZgKuv6pJHINA`,
-        )
-          .then(response => response.json())
-          .then(data => {
-            console.log('date', data);
-            if (data.results.length > 0) {
-              setLocation(data.results[0].formatted_address);
-            }
-          })
-          .catch(error => console.error('Error fetching location:', error));
-      },
-      error => console.error('Error getting location:', error),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
-    );
-  }, []);
+  // useEffect(() => {
+  //   // Get the current location
+  //   Geolocation.getCurrentPosition(
+  //     position => {
+  //       const {latitude, longitude} = position.coords;
+  //       setRegion({...region, latitude, longitude});
+  //       // Use reverse geocoding to get the location name from latitude and longitude
+  //       fetch(
+  //         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDJqEKwV49K0ycxK_os6f9ZgKuv6pJHINA`,
+  //       )
+  //         .then(response => response.json())
+  //         .then(data => {
+  //           console.log('date', data);
+  //           if (data.results.length > 0) {
+  //             setLocation(data.results[0].formatted_address);
+  //           }
+  //         })
+  //         .catch(error => console.error('Error fetching location:', error));
+  //     },
+  //     error => console.error('Error getting location:', error),
+  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+  //   );
+  // }, []);
 
   const goToCurrentLocation = () => {
     // Update the region to the current location
@@ -117,7 +118,7 @@ const LocationScreen = () => {
   const handleNext = () => {
     saveRegistrationProgress('Location', {location});
     // Navigate to the next screen
-    navigation.navigate('Gender');
+    navigation.navigate('Type');
   };
 
   return (
@@ -135,7 +136,7 @@ const LocationScreen = () => {
               alignItems: 'center',
             }}>
             <MaterialCommunityIcons
-              name="cake-variant-outline"
+              name="location-enter"
               size={26}
               color="black"
             />
@@ -156,7 +157,7 @@ const LocationScreen = () => {
           }}>
           Where do you live?
         </Text>
-        <MapView
+        {/* <MapView
           initialRegion={{
             latitude: 13.0451,
             longitude: 77.6269,
@@ -181,7 +182,26 @@ const LocationScreen = () => {
               </Text>
             </View>
           </Marker>
-        </MapView>
+        </MapView> */}
+
+        <TextInput
+          autoFocus={true}
+          value={location}
+          onChangeText={text => setLocation(text)}
+          style={{
+            width: 340,
+            marginVertical: 10,
+            fontSize: location ? 22 : 22,
+            marginTop: 25,
+            borderBottomColor: 'black',
+            borderBottomWidth: 1,
+            paddingBottom: 10,
+            fontFamily: 'GeezaPro-Bold',
+          }}
+          placeholder="Enter you city, country"
+          placeholderTextColor={'#BEBEBE'}
+        />
+
         <TouchableOpacity
           onPress={handleNext}
           activeOpacity={0.8}
@@ -189,7 +209,7 @@ const LocationScreen = () => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>

@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
@@ -10,7 +9,7 @@ import {
 import React, {useState, useEffect} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+// import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import {
   getRegistrationProgress,
@@ -34,10 +33,11 @@ const GenderScreen = () => {
       saveRegistrationProgress('Gender', {gender});
     }
     // Navigate to the next screen
-    navigation.navigate('Type');
+    navigation.navigate('Location');
   };
+
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView>
       <View style={{marginTop: 90, marginHorizontal: 20}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View
@@ -74,8 +74,8 @@ const GenderScreen = () => {
         </Text>
 
         <Text style={{marginTop: 30, fontSize: 15, color: 'gray'}}>
-          Hinge users are matched based on these three gender groups. You can
-          add more about gender after
+          datePro users are matched based on these three gender groups. You can
+          add more about gender later
         </Text>
 
         <View style={{marginTop: 30}}>
@@ -94,6 +94,7 @@ const GenderScreen = () => {
               />
             </Pressable>
           </View>
+
           <View
             style={{
               flexDirection: 'row',
@@ -110,6 +111,7 @@ const GenderScreen = () => {
               />
             </Pressable>
           </View>
+
           <View
             style={{
               flexDirection: 'row',
@@ -127,7 +129,7 @@ const GenderScreen = () => {
           </View>
         </View>
 
-        <View
+        {/* <View
           style={{
             marginTop: 30,
             flexDirection: 'row',
@@ -136,7 +138,7 @@ const GenderScreen = () => {
           }}>
           <AntDesign name="checksquare" size={26} color="#581845" />
           <Text style={{fontSize: 15}}>Visible on profile</Text>
-        </View>
+        </View> */}
         <TouchableOpacity
           onPress={handleNext}
           activeOpacity={0.8}
@@ -144,7 +146,7 @@ const GenderScreen = () => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>
@@ -154,5 +156,3 @@ const GenderScreen = () => {
 };
 
 export default GenderScreen;
-
-const styles = StyleSheet.create({});
