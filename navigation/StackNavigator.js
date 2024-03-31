@@ -29,6 +29,9 @@ import {ActivityIndicator, View} from 'react-native';
 import {AuthContext} from '../context/AuthContext';
 import ProfileDetailsScreen from '../screens/ProfileDetailsScreen';
 import LoginScreen from '../screens/LoginScreen';
+import SendLikeScreen from '../screens/SendLikeScreen';
+import HandleLikeScreen from '../screens/HandleLikeScreen';
+import ChatRoomScreen from '../screens/ChatRoomScreen';
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -226,6 +229,17 @@ const StackNavigator = () => {
           component={ProfileDetailsScreen}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="SendLike"
+          component={SendLikeScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="HandleLike"
+          component={HandleLikeScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name="ChatRoom" component={ChatRoomScreen} />
       </Stack.Navigator>
     );
   };

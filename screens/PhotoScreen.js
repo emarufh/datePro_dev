@@ -21,7 +21,7 @@ import {
 
 const PhotoScreen = () => {
   const navigation = useNavigation();
-  const [imageUrls, setImageUrls] = useState(['', '', '', '', '', '']);
+  const [imageUrls, setImageUrls] = useState(['', '', '', '']);
   const [imageUrl, setImageUrl] = useState('');
 
   const handleAddImage = () => {

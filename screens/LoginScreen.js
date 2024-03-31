@@ -18,15 +18,15 @@ import axios from 'axios';
 import {AuthContext} from '../context/AuthContext';
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const route = useRoute();
-  console.log(route);
+  console.log('Route: ', route);
   const [password, setPassword] = useState('');
-  const navigation = useNavigation();
   const [option, setOption] = useState('Create account');
   const {token, isLoading, setToken} = useContext(AuthContext);
 
-  console.log(token);
+  console.log('Token: ', token);
 
   useEffect(() => {
     // Check if the token is set and not in loading state
@@ -46,8 +46,8 @@ const LoginScreen = () => {
         email: email,
         password: password,
       };
-
       const response = await axios.post('http://10.0.2.2:3000/login', user);
+      console.log('Dfdfd');
       const token = response.data.token;
 
       // Store the token in AsyncStorage
@@ -58,6 +58,12 @@ const LoginScreen = () => {
     } catch (error) {
       console.log('error', error);
     }
+  };
+
+  const createAccount = () => {
+    setOption('Create account');
+
+    navigation.navigate('BasicInfo');
   };
 
   return (
@@ -109,82 +115,121 @@ const LoginScreen = () => {
 
       <KeyboardAvoidingView>
         <View style={{marginTop: 40}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 5,
-              backgroundColor: '#F2F2F2',
-              borderRadius: 5,
-              marginTop: 30,
-            }}>
-            <MaterialIcons
-              style={{marginLeft: 8}}
-              name="email"
-              size={24}
-              color="gray"
-            />
-            <TextInput
-              value={email}
-              onChangeText={text => setEmail(text)}
-              placeholder="Enter your email"
-              placeholderTextColor={'gray'}
-              style={{
-                color: 'black',
-                marginVertical: 10,
-                width: 300,
-                fontSize: email ? 16 : 16,
-              }}
-            />
-          </View>
-
-          <View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 5,
-                backgroundColor: '#F2F2F2',
-                borderRadius: 5,
-                marginTop: 30,
-              }}>
-              <Entypo
-                style={{marginLeft: 8}}
-                name="lock"
-                size={24}
-                color="gray"
-              />
-              <TextInput
-                value={password}
-                onChangeText={text => setPassword(text)}
-                secureTextEntry={true}
-                placeholder="Enter your password"
-                placeholderTextColor={'gray'}
+          {option == 'Sign In' ? (
+            <>
+              <View
                 style={{
-                  color: 'black',
-                  marginVertical: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 5,
+                  backgroundColor: '#F2F2F2',
+                  borderRadius: 5,
+                  marginTop: 30,
+                }}>
+                <MaterialIcons
+                  style={{marginLeft: 8}}
+                  name="email"
+                  size={24}
+                  color="gray"
+                />
+                <TextInput
+                  value={email}
+                  onChangeText={text => setEmail(text)}
+                  placeholder="Enter your email"
+                  placeholderTextColor={'gray'}
+                  style={{
+                    color: 'black',
+                    marginVertical: 10,
+                    width: 300,
+                    fontSize: email ? 16 : 16,
+                  }}
+                />
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 5,
+                  backgroundColor: '#F2F2F2',
+                  borderRadius: 5,
+                  marginTop: 30,
+                }}>
+                <Entypo
+                  style={{marginLeft: 8}}
+                  name="lock"
+                  size={24}
+                  color="gray"
+                />
+                <TextInput
+                  value={password}
+                  onChangeText={text => setPassword(text)}
+                  secureTextEntry={true}
+                  placeholder="Enter your password"
+                  placeholderTextColor={'gray'}
+                  style={{
+                    color: 'black',
+                    marginVertical: 10,
+                    width: 300,
+                    fontSize: password ? 16 : 16,
+                  }}
+                />
+              </View>
+
+              <View
+                style={{
+                  marginTop: 12,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                }}>
+                <Text style={{color: '#007FFF', fontWeight: '500'}}>
+                  Forgot Password
+                </Text>
+              </View>
+            </>
+          ) : (
+            <View>
+              <LottieView
+                source={require('../assets/login.json')}
+                style={{
+                  height: 180,
                   width: 300,
-                  fontSize: password ? 16 : 16,
+                  alignSelf: 'center',
+                  marginTop: 40,
+                  justifyContent: 'center',
                 }}
+                autoPlay
+                loop={true}
+                speed={0.7}
               />
             </View>
-          </View>
-
-          <View
-            style={{
-              marginTop: 12,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <Text>Keep me logged in</Text>
-
-            <Text style={{color: '#007FFF', fontWeight: '500'}}>
-              Forgot Password
-            </Text>
-          </View>
+          )}
 
           <View style={{marginTop: 40}} />
+
+          {/* <Pressable
+            onPress={createAccount}
+            style={{
+              width: 300,
+              backgroundColor:
+                option == 'Create account' ? '#581845' : 'transparent',
+              borderRadius: 6,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              padding: 15,
+              borderRadius: 30,
+            }}>
+            <Text
+              style={{
+                textAlign: 'center',
+                color: option == 'Create account' ? 'white' : 'black',
+                fontSize: 16,
+                fontWeight: 'bold',
+              }}>
+              Create account
+            </Text>
+          </Pressable> */}
 
           <Pressable
             onPress={signInUser}

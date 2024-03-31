@@ -35,24 +35,7 @@ app.listen(port, () => {
 const User = require('./models/user');
 const Chat = require('./models/message');
 
-const generateToken = user => {
-  // Define your secret key used to sign the token
-  const secretKey = crypto.randomBytes(32).toString('hex');
-
-  // Define the token payload (you can include any user data you want)
-  const payload = {
-    userId: user._id,
-    email: user.email,
-    // Add any other user data you want to include
-  };
-
-  // Generate the token with the payload and secret key
-  const token = jwt.sign(payload, secretKey, {expiresIn: '1d'}); // Token expires in 1 hour
-
-  return token;
-};
-
-// Backend Route to Create User and Generate Token
+// Route to create user and generate token
 app.post('/register', async (req, res) => {
   try {
     // Extract user data from the request body
@@ -75,24 +58,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// app.get('/user', async (req, res) => {
-//   try {
-//     // Get the user details based on the user ID from the authentication token
-//     const userId = req.user.id; // Assuming the user ID is stored in the request object after authentication
-//     const user = await User.findById(userId);
-
-//     if (!user) {
-//       return res.status(404).json({message: 'User not found'});
-//     }
-
-//     res.status(200).json(user);
-//   } catch (error) {
-//     console.error('Error fetching user details:', error);
-//     res.status(500).json({message: 'Internal server error'});
-//   }
-// });
-
-//fetch users data
+// Route to fetch user's data
 app.get('/users/:userId', async (req, res) => {
   try {
     const {userId} = req.params;
@@ -109,7 +75,7 @@ app.get('/users/:userId', async (req, res) => {
   }
 });
 
-//endpoint to login
+// Route to login
 app.post('/login', async (req, res) => {
   try {
     const {email, password} = req.body;
@@ -122,7 +88,7 @@ app.post('/login', async (req, res) => {
 
     //check in password is correct
     if (user.password !== password) {
-      return res.status(401).json({message: 'Invalide password'});
+      return res.status(401).json({message: 'Invalid password'});
     }
 
     const secretKey = crypto.randomBytes(32).toString('hex');
@@ -135,6 +101,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Route to all matching profiles
 app.get('/matches', async (req, res) => {
   try {
     const {userId} = req.query;
@@ -189,7 +156,7 @@ app.get('/matches', async (req, res) => {
   }
 });
 
-// Endpoint for liking a profile
+// Route for liking a profile
 app.post('/like-profile', async (req, res) => {
   try {
     const {userId, likedUserId, image, comment} = req.body;
@@ -218,6 +185,7 @@ app.post('/like-profile', async (req, res) => {
   }
 });
 
+// Route for receving likes
 app.get('/received-likes/:userId', async (req, res) => {
   try {
     const {userId} = req.params;
@@ -233,7 +201,7 @@ app.get('/received-likes/:userId', async (req, res) => {
   }
 });
 
-//endpoint to create a match betweeen two people
+// Route to create a match betweeen two people
 app.post('/create-match', async (req, res) => {
   try {
     const {currentUserId, selectedUserId} = req.body;
@@ -269,7 +237,7 @@ app.post('/create-match', async (req, res) => {
   }
 });
 
-// Endpoint to get all matches of a specific user
+// Route to get all matches of a specific user
 app.get('/get-matches/:userId', async (req, res) => {
   try {
     const {userId} = req.params;

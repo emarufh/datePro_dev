@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Pressable,
-  Image,
-} from 'react-native';
+import {Text, View, ScrollView, Pressable, Image} from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import 'core-js/stable/atob';
@@ -22,12 +15,10 @@ import axios from 'axios';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [option, setOption] = useState('Compatible');
   const [profilesData, setProfilesData] = useState([]);
   const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    console.log('hi');
     const fetchUser = async () => {
       const token = await AsyncStorage.getItem('token');
       const decodedToken = jwtDecode(token);
@@ -83,7 +74,7 @@ const HomeScreen = () => {
   const fetchMatches = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/matches?userId=${userId}`,
+        `http://10.0.2.2:3000/matches?userId=${userId}`,
       );
       const matches = response.data.matches;
       setProfilesData(matches);
@@ -128,75 +119,7 @@ const HomeScreen = () => {
             alignItems: 'center',
             gap: 10,
           }}>
-          <View
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: 19,
-              backgroundColor: '#D0D0D0',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Ionicons name="sparkles-sharp" size={22} color="black" />
-          </View>
-          <Pressable
-            onPress={() => setOption('Compatible')}
-            style={{
-              borderColor: option == 'Compatible' ? 'transparent' : '#808080',
-              borderWidth: 0.7,
-              padding: 10,
-              borderRadius: 20,
-              backgroundColor: option == 'Compatible' ? 'black' : 'transparent',
-            }}>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 14,
-                fontWeight: '400',
-                color: option == 'Compatible' ? 'white' : '#808080',
-              }}>
-              Compatible
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => setOption('Active Today')}
-            style={{
-              borderColor: option == 'Active Today' ? 'transparent' : '#808080',
-              borderWidth: 0.7,
-              padding: 10,
-              borderRadius: 20,
-              backgroundColor:
-                option == 'Active Today' ? 'black' : 'transparent',
-            }}>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 14,
-                fontWeight: '400',
-                color: option == 'Active Today' ? 'white' : '#808080',
-              }}>
-              Active Today
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => setOption('New here')}
-            style={{
-              borderColor: option == 'New here' ? 'transparent' : '#808080',
-              borderWidth: 0.7,
-              padding: 10,
-              borderRadius: 20,
-              backgroundColor: option == 'New here' ? 'black' : 'transparent',
-            }}>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 14,
-                fontWeight: '400',
-                color: option == 'New here' ? 'white' : '#808080',
-              }}>
-              New here
-            </Text>
-          </Pressable>
+          <Text className="text-2xl font-bold text-center">datePro</Text>
         </View>
         <View style={{marginHorizontal: 12, marginVertical: 12}}>
           <>
@@ -228,21 +151,9 @@ const HomeScreen = () => {
                     </Text>
                   </View>
                 </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 15,
-                  }}>
-                  <Entypo
-                    name="dots-three-horizontal"
-                    size={22}
-                    color="black"
-                  />
-                </View>
               </View>
 
-              <View style={{marginVertical: 15}}>
+              <View style={{marginVertical: 20}}>
                 <View>
                   {currentProfile?.imageUrls?.length > 0 && (
                     <View>
@@ -426,7 +337,7 @@ const HomeScreen = () => {
                       size={22}
                       color="black"
                     />
-                    <Text>University of Bangalore</Text>
+                    <Text>University of Dhaka</Text>
                   </View>
 
                   <View
@@ -440,7 +351,7 @@ const HomeScreen = () => {
                       paddingBottom: 10,
                     }}>
                     <Ionicons name="book-outline" size={20} color="black" />
-                    <Text>Hindu</Text>
+                    <Text>Islam</Text>
                   </View>
 
                   <View
@@ -454,7 +365,7 @@ const HomeScreen = () => {
                       paddingBottom: 10,
                     }}>
                     <Ionicons name="home-outline" size={20} color="black" />
-                    <Text>Mathura</Text>
+                    <Text>{currentProfile?.location}</Text>
                   </View>
                   <View
                     style={{
@@ -470,7 +381,7 @@ const HomeScreen = () => {
                     <Text>{currentProfile?.lookingFor}</Text>
                   </View>
 
-                  <View
+                  {/* <View
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
@@ -482,7 +393,7 @@ const HomeScreen = () => {
                     }}>
                     <Ionicons name="heart-outline" size={20} color="black" />
                     <Text>Monogamy</Text>
-                  </View>
+                  </View> */}
                 </View>
 
                 <View>
@@ -526,7 +437,7 @@ const HomeScreen = () => {
                   ))}
                 </View>
 
-                <View style={{marginVertical: 15}}>
+                <View>
                   {currentProfile?.prompts.slice(1, 2).map(prompt => (
                     <>
                       <View
@@ -613,7 +524,8 @@ const HomeScreen = () => {
                     </View>
                   ))}
                 </View>
-                <View style={{marginVertical: 15}}>
+
+                {/* <View style={{marginVertical: 15}}>
                   {currentProfile?.prompts.slice(2, 3).map(prompt => (
                     <>
                       <View
@@ -659,9 +571,9 @@ const HomeScreen = () => {
                       </View>
                     </>
                   ))}
-                </View>
+                </View> */}
 
-                <View>
+                {/* <View>
                   {currentProfile?.imageUrls?.slice(4, 7).map((item, index) => (
                     <View key={index} style={{marginVertical: 10}}>
                       <Image
@@ -699,26 +611,10 @@ const HomeScreen = () => {
                       </Pressable>
                     </View>
                   ))}
-                </View>
+                </View> */}
               </View>
-
-              {/* <View
-              style={{
-                position:"absolute",
-                bottom: 10,
-                left: 10,
-                backgroundColor: 'white',
-                width: 42,
-                height: 42,
-                borderRadius: 21,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Entypo name="cross" size={25} color="#C5B358" />
-            </View> */}
             </View>
           </>
-          {/* ))} */}
         </View>
       </ScrollView>
       <Pressable

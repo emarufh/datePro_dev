@@ -69,7 +69,7 @@ const HomeTownScreen = () => {
             fontFamily: 'GeezaPro-Bold',
             marginTop: 15,
           }}>
-          Where's your home Town?
+          Where's your Home Town?
         </Text>
 
         <TextInput
@@ -86,7 +86,7 @@ const HomeTownScreen = () => {
             paddingBottom: 10,
             fontFamily: 'GeezaPro-Bold',
           }}
-          placeholder="HomeTown"
+          placeholder="Enter in your home town"
           placeholderTextColor={'#BEBEBE'}
         />
 
@@ -97,7 +97,7 @@ const HomeTownScreen = () => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#000"
             style={{alignSelf: 'center', marginTop: 20}}
           />
         </TouchableOpacity>
