@@ -168,7 +168,7 @@ const PhotoScreen = () => {
               color: '#581845',
               marginTop: 3,
             }}>
-            Add four to six photos
+            Add at most four photos
           </Text>
         </View>
 

@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+// import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import LottieView from 'lottie-react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
+// import LottieView from 'lottie-react-native';
+import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {AuthContext} from '../context/AuthContext';
@@ -20,10 +20,7 @@ import {AuthContext} from '../context/AuthContext';
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
-  const route = useRoute();
-  console.log('Route: ', route);
   const [password, setPassword] = useState('');
-  const [option, setOption] = useState('Create account');
   const {token, isLoading, setToken} = useContext(AuthContext);
 
   console.log('Token: ', token);
@@ -37,33 +34,23 @@ const LoginScreen = () => {
   }, [token, navigation]);
 
   const signInUser = async () => {
-    setOption('Sign In');
-
     try {
-      console.log(email);
-      console.log(password);
       const user = {
         email: email,
         password: password,
       };
+
       const response = await axios.post('http://10.0.2.2:3000/login', user);
-      console.log('Dfdfd');
       const token = response.data.token;
 
       // Store the token in AsyncStorage
       await AsyncStorage.setItem('token', token);
 
       setToken(token);
-      // navigation.replace('Main');
+      navigation.replace('Main');
     } catch (error) {
       console.log('error', error);
     }
-  };
-
-  const createAccount = () => {
-    setOption('Create account');
-
-    navigation.navigate('BasicInfo');
   };
 
   return (
@@ -115,121 +102,80 @@ const LoginScreen = () => {
 
       <KeyboardAvoidingView>
         <View style={{marginTop: 40}}>
-          {option == 'Sign In' ? (
-            <>
-              <View
+          <>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 5,
+                backgroundColor: '#F2F2F2',
+                borderRadius: 5,
+                marginTop: 30,
+              }}>
+              <MaterialIcons
+                style={{marginLeft: 8}}
+                name="email"
+                size={24}
+                color="gray"
+              />
+              <TextInput
+                value={email}
+                onChangeText={text => setEmail(text)}
+                placeholder="Enter your email"
+                placeholderTextColor={'gray'}
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 5,
-                  backgroundColor: '#F2F2F2',
-                  borderRadius: 5,
-                  marginTop: 30,
-                }}>
-                <MaterialIcons
-                  style={{marginLeft: 8}}
-                  name="email"
-                  size={24}
-                  color="gray"
-                />
-                <TextInput
-                  value={email}
-                  onChangeText={text => setEmail(text)}
-                  placeholder="Enter your email"
-                  placeholderTextColor={'gray'}
-                  style={{
-                    color: 'black',
-                    marginVertical: 10,
-                    width: 300,
-                    fontSize: email ? 16 : 16,
-                  }}
-                />
-              </View>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 5,
-                  backgroundColor: '#F2F2F2',
-                  borderRadius: 5,
-                  marginTop: 30,
-                }}>
-                <Entypo
-                  style={{marginLeft: 8}}
-                  name="lock"
-                  size={24}
-                  color="gray"
-                />
-                <TextInput
-                  value={password}
-                  onChangeText={text => setPassword(text)}
-                  secureTextEntry={true}
-                  placeholder="Enter your password"
-                  placeholderTextColor={'gray'}
-                  style={{
-                    color: 'black',
-                    marginVertical: 10,
-                    width: 300,
-                    fontSize: password ? 16 : 16,
-                  }}
-                />
-              </View>
-
-              <View
-                style={{
-                  marginTop: 12,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
-                }}>
-                <Text style={{color: '#007FFF', fontWeight: '500'}}>
-                  Forgot Password
-                </Text>
-              </View>
-            </>
-          ) : (
-            <View>
-              <LottieView
-                source={require('../assets/login.json')}
-                style={{
-                  height: 180,
+                  color: 'black',
+                  marginVertical: 10,
                   width: 300,
-                  alignSelf: 'center',
-                  marginTop: 40,
-                  justifyContent: 'center',
+                  fontSize: email ? 16 : 16,
                 }}
-                autoPlay
-                loop={true}
-                speed={0.7}
               />
             </View>
-          )}
+
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 5,
+                backgroundColor: '#F2F2F2',
+                borderRadius: 5,
+                marginTop: 30,
+              }}>
+              <Entypo
+                style={{marginLeft: 8}}
+                name="lock"
+                size={24}
+                color="gray"
+              />
+              <TextInput
+                value={password}
+                onChangeText={text => setPassword(text)}
+                secureTextEntry={true}
+                placeholder="Enter your password"
+                placeholderTextColor={'gray'}
+                style={{
+                  color: 'black',
+                  marginVertical: 10,
+                  width: 300,
+                  fontSize: password ? 16 : 16,
+                }}
+              />
+            </View>
+
+            <View
+              style={{
+                marginTop: 12,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+              }}>
+              <Text style={{color: '#007FFF', fontWeight: '500'}}>
+                Forgot Password
+              </Text>
+            </View>
+          </>
 
           <View style={{marginTop: 40}} />
-
-          {/* <Pressable
-            onPress={createAccount}
-            style={{
-              width: 300,
-              backgroundColor:
-                option == 'Create account' ? '#581845' : 'transparent',
-              borderRadius: 6,
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              padding: 15,
-              borderRadius: 30,
-            }}>
-            <Text
-              style={{
-                textAlign: 'center',
-                color: option == 'Create account' ? 'white' : 'black',
-                fontSize: 16,
-                fontWeight: 'bold',
-              }}>
-              Create account
-            </Text>
-          </Pressable> */}
 
           <Pressable
             onPress={signInUser}
@@ -251,6 +197,19 @@ const LoginScreen = () => {
                 fontWeight: 'bold',
               }}>
               Sign In
+            </Text>
+          </Pressable>
+
+          <Pressable
+            style={{
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              padding: 15,
+              marginTop: 10,
+            }}
+            onPress={() => navigation.navigate('BasicInfo')}>
+            <Text style={{fontSize: 16, fontWeight: 600}}>
+              Don't have an account? Sign Up
             </Text>
           </Pressable>
         </View>

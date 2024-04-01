@@ -28,6 +28,7 @@ const ProfileScreen = () => {
   }, []);
 
   const [currentProfile, setCurrentProfile] = useState(null);
+
   useEffect(() => {
     if (userId) {
       getUserDetails();

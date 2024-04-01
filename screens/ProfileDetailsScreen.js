@@ -1,5 +1,5 @@
 import {ScrollView, Text, View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {useRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,11 +8,51 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {useNavigation} from '@react-navigation/native';
 import {ChevronLeftIcon} from 'react-native-heroicons/solid';
+import Carousel from 'react-native-snap-carousel';
 
 const ProfileDetailsScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
+  const [activeSlide, setActiveSlide] = useState(0);
   // console.log(route?.params);
+
+  let images = route?.params?.currentProfile?.imageUrls;
+
+  function calculateAge(dateOfBirth) {
+    // Split the date string into day, month, and year
+    const parts = dateOfBirth.split('/');
+    const dob = new Date(parts[2], parts[1] - 1, parts[0]); // Month is 0-based
+
+    // Calculate the difference in milliseconds between the current date and the date of birth
+    const diffMs = Date.now() - dob.getTime();
+
+    // Convert the difference to a Date object
+    const ageDate = new Date(diffMs);
+
+    // Extract the year part from the Date object and subtract 1970 to get the age
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+    return age;
+  }
+
+  const renderImageCarousel = ({item}) => (
+    <View
+      style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+      <Image
+        style={{
+          width: '95%',
+          resizeMode: 'cover',
+          height: 350,
+          borderRadius: 10,
+          // transform: [{rotate: '-5deg'}],
+        }}
+        source={{uri: item}}
+      />
+      <Text style={{position: 'absolute', top: 10, right: 15, color: 'white'}}>
+        {activeSlide + 1}/{images.length}
+      </Text>
+    </View>
+  );
 
   return (
     <View style={{marginTop: 35}}>
@@ -59,22 +99,13 @@ const ProfileDetailsScreen = () => {
             <View style={{marginTop: 20}}>
               <View>
                 {route?.params?.currentProfile?.imageUrls.length > 0 && (
-                  <View
-                    style={{
-                      flex: 1,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <Image
-                      style={{
-                        width: '70%',
-                        height: 300,
-                        resizeMode: 'cover',
-                        borderRadius: 30,
-                      }}
-                      source={{
-                        uri: route?.params?.currentProfile?.imageUrls[0],
-                      }}
+                  <View>
+                    <Carousel
+                      data={images}
+                      renderItem={renderImageCarousel}
+                      sliderWidth={350}
+                      itemWidth={300}
+                      onSnapToItem={index => setActiveSlide(index)}
                     />
                   </View>
                 )}
@@ -108,7 +139,11 @@ const ProfileDetailsScreen = () => {
                         size={22}
                         color="black"
                       />
-                      <Text style={{fontSize: 15}}>23</Text>
+                      <Text style={{fontSize: 15}}>
+                        {calculateAge(
+                          route?.params?.currentProfile?.dateOfBirth,
+                        )}
+                      </Text>
                     </View>
 
                     <View
@@ -161,7 +196,7 @@ const ProfileDetailsScreen = () => {
                       paddingBottom: 10,
                     }}>
                     <Ionicons name="bag-add-outline" size={20} color="black" />
-                    <Text>Research Assistant at Medical College</Text>
+                    <Text>{route?.params?.currentProfile?.profession}</Text>
                   </View>
 
                   <View
@@ -179,7 +214,7 @@ const ProfileDetailsScreen = () => {
                       size={22}
                       color="black"
                     />
-                    <Text>University of Dhaka</Text>
+                    <Text>{route?.params?.currentProfile?.education}</Text>
                   </View>
 
                   <View
@@ -193,7 +228,7 @@ const ProfileDetailsScreen = () => {
                       paddingBottom: 10,
                     }}>
                     <Ionicons name="book-outline" size={20} color="black" />
-                    <Text>Islam</Text>
+                    <Text>{route?.params?.currentProfile?.religion}</Text>
                   </View>
 
                   <View
@@ -223,26 +258,6 @@ const ProfileDetailsScreen = () => {
                     <Text>{route?.params?.currentProfile?.lookingFor}</Text>
                   </View>
                 </View>
-              </View>
-
-              <View>
-                {route?.params?.currentProfile?.imageUrls
-                  ?.slice(1, 4)
-                  .map((item, index) => (
-                    <View key={index} style={{marginVertical: 10}}>
-                      <Image
-                        style={{
-                          width: '100%',
-                          height: 350,
-                          resizeMode: 'cover',
-                          borderRadius: 10,
-                        }}
-                        source={{
-                          uri: item,
-                        }}
-                      />
-                    </View>
-                  ))}
               </View>
             </View>
           </View>

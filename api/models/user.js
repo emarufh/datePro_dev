@@ -47,6 +47,18 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  religion: {
+    type: String,
+    required: false,
+  },
+  education: {
+    type: String,
+    required: false,
+  },
+  profession: {
+    type: String,
+    required: false,
+  },
   imageUrls: [
     {
       type: String, // Store URLs of profile pictures

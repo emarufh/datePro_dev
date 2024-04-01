@@ -25,13 +25,17 @@ import PhotoScreen from '../screens/PhotoScreen';
 import PromptsScreen from '../screens/PromptsScreen';
 import ShowPromptsScreen from '../screens/ShowPromptsScreen';
 import PreFinalScreen from '../screens/PreFinalScreen';
-import {ActivityIndicator, View} from 'react-native';
-import {AuthContext} from '../context/AuthContext';
 import ProfileDetailsScreen from '../screens/ProfileDetailsScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SendLikeScreen from '../screens/SendLikeScreen';
 import HandleLikeScreen from '../screens/HandleLikeScreen';
 import ChatRoomScreen from '../screens/ChatRoomScreen';
+import EducationScreen from '../screens/EducationScreen';
+import ProfessionScreen from '../screens/ProfessionScreen';
+import {ActivityIndicator, View} from 'react-native';
+import {AuthContext} from '../context/AuthContext';
+import ReligionScreen from '../screens/ReligionScreen';
+import AnimationScreen from '../screens/AnimationScreen';
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -39,7 +43,7 @@ const StackNavigator = () => {
 
   const {isLoading, token} = useContext(AuthContext);
   // Ensure token is properly initialized
-  console.log('token:', token);
+  console.log('Token: ', token);
 
   if (isLoading) {
     return (
@@ -208,6 +212,21 @@ const StackNavigator = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
+          name="Education"
+          component={EducationScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Profession"
+          component={ProfessionScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Religion"
+          component={ReligionScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           name="PreFinal"
           component={PreFinalScreen}
           options={{headerShown: false}}
@@ -222,6 +241,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Main"
           component={BottomTabs}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Animation"
+          component={AnimationScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen

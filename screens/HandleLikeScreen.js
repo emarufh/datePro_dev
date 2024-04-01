@@ -9,8 +9,10 @@ import {
 } from 'react-native';
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
-import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Octicons from 'react-native-vector-icons/Octicons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
@@ -111,7 +113,7 @@ const HandleLikeScreen = () => {
                         uri: route?.params?.imageUrls[0],
                       }}
                     />
-                    <Pressable
+                    {/* <Pressable
                       style={{
                         position: 'absolute',
                         bottom: 10,
@@ -124,12 +126,155 @@ const HandleLikeScreen = () => {
                         alignItems: 'center',
                       }}>
                       <AntDesign name="hearto" size={25} color="#C5B358" />
-                    </Pressable>
+                    </Pressable> */}
                   </View>
                 )}
               </View>
 
               {/* profile details to come here */}
+
+              <View style={{marginTop: 20}}>
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    padding: 10,
+                    borderRadius: 8,
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      paddingTop: 5,
+                      alignItems: 'center',
+                      gap: 20,
+                      borderBottomWidth: 0.8,
+                      borderBottomColor: '#E0E0E0',
+                      paddingBottom: 10,
+                    }}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 10,
+                      }}>
+                      <MaterialCommunityIcons
+                        name="cake-variant-outline"
+                        size={22}
+                        color="black"
+                      />
+                      <Text style={{fontSize: 15}}>23</Text>
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 10,
+                      }}>
+                      <Ionicons name="person-outline" size={20} color="black" />
+                      <Text style={{fontSize: 15}}>
+                        {route?.params?.currentProfile?.gender}
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 10,
+                      }}>
+                      <Ionicons name="magnet-outline" size={20} color="black" />
+                      <Text style={{fontSize: 15}}>
+                        {route?.params?.currentProfile?.type}
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 10,
+                      }}>
+                      <Octicons name="home" size={20} color="black" />
+                      <Text style={{fontSize: 15}}>
+                        {route?.params?.currentProfile?.hometown}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 12,
+                      marginTop: 15,
+                      borderBottomWidth: 0.8,
+                      borderBottomColor: '#E0E0E0',
+                      paddingBottom: 10,
+                    }}>
+                    <Ionicons name="bag-add-outline" size={20} color="black" />
+                    <Text>{route?.params?.currentProfile?.profession}</Text>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 12,
+                      marginTop: 15,
+                      borderBottomWidth: 0.8,
+                      borderBottomColor: '#E0E0E0',
+                      paddingBottom: 10,
+                    }}>
+                    <SimpleLineIcons
+                      name="graduation"
+                      size={22}
+                      color="black"
+                    />
+                    <Text>{route?.params?.currentProfile?.education}</Text>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 12,
+                      marginTop: 15,
+                      borderBottomWidth: 0.8,
+                      borderBottomColor: '#E0E0E0',
+                      paddingBottom: 10,
+                    }}>
+                    <Ionicons name="book-outline" size={20} color="black" />
+                    <Text>{route?.params?.currentProfile?.religion}</Text>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 12,
+                      marginTop: 15,
+                      borderBottomWidth: 0.8,
+                      borderBottomColor: '#E0E0E0',
+                      paddingBottom: 10,
+                    }}>
+                    <Ionicons name="home-outline" size={20} color="black" />
+                    <Text>{route?.params?.currentProfile?.location}</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 12,
+                      marginTop: 15,
+                      borderBottomWidth: 0.7,
+                      borderBottomColor: '#E0E0E0',
+                      paddingBottom: 10,
+                    }}>
+                    <Feather name="search" size={20} color="black" />
+                    <Text>{route?.params?.currentProfile?.lookingFor}</Text>
+                  </View>
+                </View>
+              </View>
 
               <View>
                 {route?.params?.imageUrls?.slice(1, 4).map((item, index) => (
@@ -145,21 +290,6 @@ const HandleLikeScreen = () => {
                         uri: item,
                       }}
                     />
-
-                    <View
-                      style={{
-                        position: 'absolute',
-                        bottom: 10,
-                        right: 10,
-                        backgroundColor: 'white',
-                        width: 42,
-                        height: 42,
-                        borderRadius: 21,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
-                      <AntDesign name="hearto" size={25} color="#C5B358" />
-                    </View>
                   </View>
                 ))}
               </View>

@@ -26,7 +26,8 @@ const SendLikeScreen = () => {
         image: route?.params?.image,
         comment: comment,
       });
-      console.log(response.data.message); // Log success message
+
+      // console.log(response.data.message);
       if (response.status == 200) {
         navigation.goBack();
       }

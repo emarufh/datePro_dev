@@ -8,32 +8,32 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {useNavigation} from '@react-navigation/native';
 import {
   getRegistrationProgress,
   saveRegistrationProgress,
 } from '../registrationUtils';
 
-const HomeTownScreen = () => {
-  const [hometown, setHometown] = useState('');
+const EducationScreen = () => {
   const navigation = useNavigation();
+  const [education, setEducation] = useState('');
 
   useEffect(() => {
-    getRegistrationProgress('Hometown').then(progressData => {
+    getRegistrationProgress('Education').then(progressData => {
       if (progressData) {
-        setHometown(progressData.hometown || '');
+        setEducation(progressData.education || '');
       }
     });
   }, []);
 
   const handleNext = () => {
-    if (hometown.trim() !== '') {
+    if (education.trim() !== '') {
       // Save the current progress data including the name
-      saveRegistrationProgress('Hometown', {hometown});
+      saveRegistrationProgress('Education', {education});
     }
     // Navigate to the next screen
-    navigation.navigate('Profession');
+    navigation.navigate('Religion');
   };
 
   return (
@@ -50,7 +50,7 @@ const HomeTownScreen = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <AntDesign name="hearto" size={22} color="black" />
+            <SimpleLineIcons name="graduation" size={22} color="black" />
           </View>
           <Image
             style={{width: 100, height: 40}}
@@ -66,24 +66,24 @@ const HomeTownScreen = () => {
             fontFamily: 'GeezaPro-Bold',
             marginTop: 15,
           }}>
-          Where's your Home Town?
+          What's the name of your Educational Institute?
         </Text>
 
         <TextInput
-          value={hometown}
-          onChangeText={text => setHometown(text)}
+          value={education}
+          onChangeText={text => setEducation(text)}
           autoFocus={true}
           style={{
             width: 340,
             marginVertical: 10,
-            fontSize: hometown ? 22 : 22,
+            fontSize: education ? 22 : 22,
             marginTop: 45,
             borderBottomColor: 'black',
             borderBottomWidth: 1,
             paddingBottom: 10,
             fontFamily: 'GeezaPro-Bold',
           }}
-          placeholder="Enter in your home town"
+          placeholder="Enter the name of your Institute"
           placeholderTextColor={'#BEBEBE'}
         />
 
@@ -103,4 +103,4 @@ const HomeTownScreen = () => {
   );
 };
 
-export default HomeTownScreen;
+export default EducationScreen;

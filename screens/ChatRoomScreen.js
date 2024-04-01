@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useState, useLayoutEffect, useEffect} from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {ChevronLeftIcon} from 'react-native-heroicons/solid';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {io} from 'socket.io-client';
 import axios from 'axios';
@@ -19,7 +19,7 @@ const ChatRoomScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  console.log(route?.params);
+  // console.log(route?.params);
 
   const socket = io('http://10.0.2.2:8000');
 
@@ -27,6 +27,7 @@ const ChatRoomScreen = () => {
   socket.on('connect', () => {
     console.log('Connected to the Socket.IO server');
   });
+
   socket.on('receiveMessage', newMessage => {
     console.log('new Message', newMessage);
 
@@ -51,7 +52,7 @@ const ChatRoomScreen = () => {
       headerLeft: () => (
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
-            <Ionicons name="arrow-back" size={24} color="black" />
+            <ChevronLeftIcon size={25} color={'black'} strokeWidth={3} />
             <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
               <Text style={{fontSize: 16, fontWeight: 'bold'}}>
                 {route?.params?.name}
@@ -60,12 +61,6 @@ const ChatRoomScreen = () => {
           </View>
         </TouchableOpacity>
       ),
-
-      // headerRight: () => (
-      //   <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
-      //     <Ionicons name="videocam-outline" size={24} color="black" />
-      //   </View>
-      // ),
     });
   }, []);
 

@@ -8,32 +8,32 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {
   getRegistrationProgress,
   saveRegistrationProgress,
 } from '../registrationUtils';
 
-const HomeTownScreen = () => {
-  const [hometown, setHometown] = useState('');
+const ProfessionScreen = () => {
   const navigation = useNavigation();
+  const [profession, setProfession] = useState('');
 
   useEffect(() => {
-    getRegistrationProgress('Hometown').then(progressData => {
+    getRegistrationProgress('Profession').then(progressData => {
       if (progressData) {
-        setHometown(progressData.hometown || '');
+        setProfession(progressData.profession || '');
       }
     });
   }, []);
 
   const handleNext = () => {
-    if (hometown.trim() !== '') {
+    if (profession.trim() !== '') {
       // Save the current progress data including the name
-      saveRegistrationProgress('Hometown', {hometown});
+      saveRegistrationProgress('Profession', {profession});
     }
     // Navigate to the next screen
-    navigation.navigate('Profession');
+    navigation.navigate('Education');
   };
 
   return (
@@ -50,7 +50,7 @@ const HomeTownScreen = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <AntDesign name="hearto" size={22} color="black" />
+            <Ionicons name="bag-add-outline" size={22} color="black" />
           </View>
           <Image
             style={{width: 100, height: 40}}
@@ -66,24 +66,24 @@ const HomeTownScreen = () => {
             fontFamily: 'GeezaPro-Bold',
             marginTop: 15,
           }}>
-          Where's your Home Town?
+          What do you do?
         </Text>
 
         <TextInput
-          value={hometown}
-          onChangeText={text => setHometown(text)}
+          value={profession}
+          onChangeText={text => setProfession(text)}
           autoFocus={true}
           style={{
             width: 340,
             marginVertical: 10,
-            fontSize: hometown ? 22 : 22,
+            fontSize: profession ? 22 : 22,
             marginTop: 45,
             borderBottomColor: 'black',
             borderBottomWidth: 1,
             paddingBottom: 10,
             fontFamily: 'GeezaPro-Bold',
           }}
-          placeholder="Enter in your home town"
+          placeholder="Enter the name of your profession"
           placeholderTextColor={'#BEBEBE'}
         />
 
@@ -103,4 +103,4 @@ const HomeTownScreen = () => {
   );
 };
 
-export default HomeTownScreen;
+export default ProfessionScreen;

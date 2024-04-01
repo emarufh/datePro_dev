@@ -1,18 +1,13 @@
 import {Pressable, SafeAreaView, Text, View} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {
-  getRegistrationProgress,
-  saveRegistrationProgress,
-} from '../registrationUtils';
+import {getRegistrationProgress} from '../registrationUtils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useRoute} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import axios from 'axios';
 import {AuthContext} from '../context/AuthContext';
 
 const PreFinalScreen = () => {
-  const route = useRoute();
   const navigation = useNavigation();
   const [userData, setUserData] = useState();
 
@@ -46,6 +41,9 @@ const PreFinalScreen = () => {
         'Dating',
         'LookingFor',
         'Hometown',
+        'Education',
+        'Profession',
+        'Religion',
         'Photos',
         // 'Prompts',
       ]; // Add more screens as needed
@@ -82,6 +80,9 @@ const PreFinalScreen = () => {
         'LookingFor',
         'Hometown',
         'Photos',
+        'Education',
+        'Profession',
+        'Religion',
       ];
       // Loop through each screen and remove its data from AsyncStorage
       for (const screenName of screens) {

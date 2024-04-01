@@ -8,32 +8,32 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {
   getRegistrationProgress,
   saveRegistrationProgress,
 } from '../registrationUtils';
 
-const HomeTownScreen = () => {
-  const [hometown, setHometown] = useState('');
+const ReligionScreen = () => {
   const navigation = useNavigation();
+  const [religion, setReligion] = useState('');
 
   useEffect(() => {
-    getRegistrationProgress('Hometown').then(progressData => {
+    getRegistrationProgress('Religion').then(progressData => {
       if (progressData) {
-        setHometown(progressData.hometown || '');
+        setReligion(progressData.religion || '');
       }
     });
   }, []);
 
   const handleNext = () => {
-    if (hometown.trim() !== '') {
+    if (religion.trim() !== '') {
       // Save the current progress data including the name
-      saveRegistrationProgress('Hometown', {hometown});
+      saveRegistrationProgress('Religion', {religion});
     }
     // Navigate to the next screen
-    navigation.navigate('Profession');
+    navigation.navigate('Photos');
   };
 
   return (
@@ -50,7 +50,7 @@ const HomeTownScreen = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <AntDesign name="hearto" size={22} color="black" />
+            <Ionicons name="book-outline" size={22} color="black" />
           </View>
           <Image
             style={{width: 100, height: 40}}
@@ -66,24 +66,24 @@ const HomeTownScreen = () => {
             fontFamily: 'GeezaPro-Bold',
             marginTop: 15,
           }}>
-          Where's your Home Town?
+          What's your Religion?
         </Text>
 
         <TextInput
-          value={hometown}
-          onChangeText={text => setHometown(text)}
+          value={religion}
+          onChangeText={text => setReligion(text)}
           autoFocus={true}
           style={{
             width: 340,
             marginVertical: 10,
-            fontSize: hometown ? 22 : 22,
+            fontSize: religion ? 22 : 22,
             marginTop: 45,
             borderBottomColor: 'black',
             borderBottomWidth: 1,
             paddingBottom: 10,
             fontFamily: 'GeezaPro-Bold',
           }}
-          placeholder="Enter in your home town"
+          placeholder="Enter your religion"
           placeholderTextColor={'#BEBEBE'}
         />
 
@@ -103,4 +103,4 @@ const HomeTownScreen = () => {
   );
 };
 
-export default HomeTownScreen;
+export default ReligionScreen;
