@@ -42,9 +42,8 @@ const ProfileDetailsScreen = () => {
         style={{
           width: '95%',
           resizeMode: 'cover',
-          height: 350,
+          height: 400,
           borderRadius: 10,
-          // transform: [{rotate: '-5deg'}],
         }}
         source={{uri: item}}
       />
@@ -98,7 +97,7 @@ const ProfileDetailsScreen = () => {
 
             <View style={{marginTop: 20}}>
               <View>
-                {route?.params?.currentProfile?.imageUrls.length > 0 && (
+                {images?.length > 0 && (
                   <View>
                     <Carousel
                       data={images}

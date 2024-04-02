@@ -7,22 +7,22 @@ import {
   Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 
-const SendLikeScreen = () => {
-  const route = useRoute();
+const SendLikeScreen = ({route}) => {
   const navigation = useNavigation();
   const [comment, setComment] = useState('');
   const userId = route?.params?.userId;
-  console.log(userId);
+
+  console.log('HHJJKK', userId);
 
   const likeProfile = async () => {
     try {
       const response = await axios.post('http://10.0.2.2:3000/like-profile', {
-        userId: route.params.userId,
-        likedUserId: route.params.likedUserId,
+        userId: route?.params?.userId,
+        likedUserId: route?.params?.likedUserId,
         image: route?.params?.image,
         comment: comment,
       });

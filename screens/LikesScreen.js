@@ -1,13 +1,5 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Pressable,
-  Image,
-} from 'react-native';
+import {Text, View, ScrollView, Pressable, Image} from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,8 +13,9 @@ const LikesScreen = () => {
   const [userId, setUserId] = useState('');
   const [likes, setLikes] = useState([]);
 
+  console.log('Likes[]: ', likes);
+
   useEffect(() => {
-    console.log('hi');
     const fetchUser = async () => {
       const token = await AsyncStorage.getItem('token');
       const decodedToken = jwtDecode(token);
@@ -61,7 +54,7 @@ const LikesScreen = () => {
     }, [userId]),
   );
 
-  console.log('likes', likes.length);
+  console.log('Total likes: ', likes.length);
 
   return (
     <ScrollView
@@ -121,20 +114,20 @@ const LikesScreen = () => {
           </Text>
         </Pressable>
         <Pressable
-          onPress={() => setOption('your type')}
+          onPress={() => setOption('Your Type')}
           style={{
-            borderColor: option == 'your type' ? 'transparent' : '#808080',
+            borderColor: option == 'Your Type' ? 'transparent' : '#808080',
             borderWidth: 0.7,
             padding: 10,
             borderRadius: 20,
-            backgroundColor: option == 'your type' ? 'black' : 'transparent',
+            backgroundColor: option == 'Your Type' ? 'black' : 'transparent',
           }}>
           <Text
             style={{
               textAlign: 'center',
               fontSize: 14,
               fontWeight: '400',
-              color: option == 'your type' ? 'white' : '#808080',
+              color: option == 'Your Type' ? 'white' : '#808080',
             }}>
             your type
           </Text>
@@ -186,9 +179,7 @@ const LikesScreen = () => {
             onPress={() =>
               navigation.navigate('HandleLike', {
                 name: likes[0].userId?.firstName,
-                image: likes[0].image,
                 imageUrls: likes[0].userId?.imageUrls,
-                prompts: likes[0].userId?.prompts,
                 userId: userId,
                 selectedUserId: likes[0].userId?._id,
                 likes: likes?.length,

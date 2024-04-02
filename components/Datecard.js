@@ -4,26 +4,71 @@ import {
   Image,
   Text,
   View,
+  // Pressable,
 } from 'react-native';
 import React from 'react';
 import {CheckBadgeIcon} from 'react-native-heroicons/solid';
-import {LinearGradient} from 'expo-linear-gradient';
+// import AntDesign from 'react-native-vector-icons/AntDesign';
+import LinearGradient from 'react-native-linear-gradient';
 
 let {width, height} = Dimensions.get('window');
 
 export default function DatesCard({item, handleClick}) {
+  function calculateAge(dateOfBirth) {
+    if (!dateOfBirth) return null;
+
+    // Split the date string into day, month, and year
+    const parts = dateOfBirth.split('/');
+    const dob = new Date(parts[2], parts[1] - 1, parts[0]); // Month is 0-based
+
+    // Calculate the difference in milliseconds between the current date and the date of birth
+    const diffMs = Date.now() - dob.getTime();
+
+    // Convert the difference to a Date object
+    const ageDate = new Date(diffMs);
+
+    // Extract the year part from the Date object and subtract 1970 to get the age
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+    return age;
+  }
+
   return (
     <View className="relative">
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
-        <Image
-          source={item.imgUrl}
-          style={{
-            width: width * 0.8,
-            height: height * 0.75,
-          }}
-          resizeMode="cover"
-          className="rounded-3xl"
-        />
+        <>
+          <Image
+            source={{uri: item.imageUrls[1]}}
+            style={{
+              width: width * 0.8,
+              height: height * 0.75,
+            }}
+            resizeMode="cover"
+            className="rounded-3xl"
+          />
+          {/* <Pressable
+            onPress={() =>
+              navigation.navigate('SendLike', {
+                image: item?.imageUrls[0],
+                name: item?.firstName,
+                userId: item?.userId,
+                likedUserId: item?._id,
+              })
+            }
+            style={{
+              position: 'absolute',
+              bottom: 10,
+              right: 10,
+              backgroundColor: 'white',
+              width: 42,
+              height: 42,
+              borderRadius: 21,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <AntDesign name="hearto" size={25} color="#C5B358" />
+          </Pressable> */}
+        </>
       </TouchableWithoutFeedback>
 
       <LinearGradient
@@ -43,21 +88,19 @@ export default function DatesCard({item, handleClick}) {
       <View className="absolute bottom-10 justify-start w-full items-start pl-4">
         <View className="flex-row justify-center items-center ">
           <Text className="text-2xl text-white font-bold">
-            {item.name}
+            {item?.firstName}
             {', '}
           </Text>
-          {/* <Text className="text-2xl text-white font-bold mr-2">{item.age}</Text> */}
+          <Text className="text-2xl text-white font-bold mr-2">
+            {calculateAge(item?.dateOfBirth)}
+          </Text>
           <CheckBadgeIcon size={25} color={'#3B82F6'} />
         </View>
 
         <View className="flex-row justify-center items-center ">
-          {/* <Text className="text-lg text-white font-regular">
-              {item.city}
-              {", "}
-            </Text>
-            <Text className="text-lg text-white font-regular mr-2">
-              {item.country}
-            </Text> */}
+          <Text className="text-lg text-white font-regular">
+            {item?.location}
+          </Text>
         </View>
       </View>
     </View>

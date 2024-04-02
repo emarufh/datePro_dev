@@ -1,64 +1,49 @@
+import React, {useEffect, useState} from 'react';
 import {
-  Text,
   View,
+  Text,
   ScrollView,
+  TouchableOpacity,
   Image,
   Pressable,
-  Alert,
-  TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
-import {useRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Octicons from 'react-native-vector-icons/Octicons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import Feather from 'react-native-vector-icons/Feather';
-import {useNavigation} from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import axios from 'axios';
-import {ChevronLeftIcon} from 'react-native-heroicons/solid';
+import Feather from 'react-native-vector-icons/Feather';
+import Octicons from 'react-native-vector-icons/Octicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import {useNavigation} from '@react-navigation/native';
 import Carousel from 'react-native-snap-carousel';
+import {ChevronLeftIcon} from 'react-native-heroicons/solid';
+import {jwtDecode} from 'jwt-decode';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const HandleLikeScreen = () => {
-  const route = useRoute();
+const MatchedProfileDetailsScreen = ({route}) => {
   const navigation = useNavigation();
   const [activeSlide, setActiveSlide] = useState(0);
-  console.log('ROUTEEEEE', route?.params);
+  const [userId, setUserId] = useState('');
 
-  const createMatch = async () => {
-    try {
-      const currentUserId = route?.params?.userId; // Example currentUserId
-      const selectedUserId = route?.params?.selectedUserId; // Example selectedUserId
-      const response = await axios.post('http://10.0.2.2:3000/create-match', {
-        currentUserId,
-        selectedUserId,
-      });
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = await AsyncStorage.getItem('token');
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.userId;
+      setUserId(userId);
+    };
 
-      if (response.status === 200) {
-        navigation.goBack();
-        // Handle success, such as updating UI or showing a success message
-      } else {
-        console.error('Failed to create match');
-        // Handle failure, such as showing an error message
-      }
-    } catch (error) {
-      console.error('Error creating match:', error);
-    }
-  };
+    fetchUser();
+  }, []);
 
-  const match = () => {
-    Alert.alert('Accept Request?', `Match with ${route?.params?.name}`, [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {text: 'OK', onPress: createMatch},
-    ]);
-    // navigation.goBack()
-  };
+  let images = route?.params?.imageUrls;
+
+  console.log('route?.params?.id: ', route?.params?.id);
+  console.log('route?.params?.firstName: ', route?.params?.firstName);
+  console.log('route?.params?.imageUrls[0]: ', route?.params?.imageUrls[0]);
 
   function calculateAge(dateOfBirth) {
+    if (!dateOfBirth) return null;
+
     // Split the date string into day, month, and year
     const parts = dateOfBirth.split('/');
     const dob = new Date(parts[2], parts[1] - 1, parts[0]); // Month is 0-based
@@ -75,8 +60,6 @@ const HandleLikeScreen = () => {
     return age;
   }
 
-  let images = route?.params?.imageUrls;
-
   const renderImageCarousel = ({item}) => (
     <View
       style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
@@ -84,7 +67,7 @@ const HandleLikeScreen = () => {
         style={{
           width: '95%',
           resizeMode: 'cover',
-          height: 450,
+          height: 400,
           borderRadius: 10,
         }}
         source={{uri: item}}
@@ -92,6 +75,28 @@ const HandleLikeScreen = () => {
       <Text style={{position: 'absolute', top: 10, right: 15, color: 'white'}}>
         {activeSlide + 1}/{images.length}
       </Text>
+      <Pressable
+        onPress={() =>
+          navigation.navigate('SendLike', {
+            image: route?.params?.imageUrls[0],
+            name: route?.params?.firstName,
+            userId: userId,
+            likedUserId: route?.params?.id,
+          })
+        }
+        style={{
+          position: 'absolute',
+          bottom: 10,
+          right: 10,
+          backgroundColor: 'white',
+          width: 42,
+          height: 42,
+          borderRadius: 21,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <AntDesign name="hearto" size={25} color="#C5B358" />
+      </Pressable>
     </View>
   );
 
@@ -101,7 +106,7 @@ const HandleLikeScreen = () => {
         <View className="justify-between items-center flex-row w-full pb-2 pl-2">
           <TouchableOpacity
             className="w-2/3 flex-row items-center"
-            onPress={() => navigation.navigate('Likes')}>
+            onPress={() => navigation.navigate('Main')}>
             <ChevronLeftIcon size={25} color={'black'} strokeWidth={3} />
           </TouchableOpacity>
         </View>
@@ -121,7 +126,7 @@ const HandleLikeScreen = () => {
                   gap: 10,
                 }}>
                 <Text style={{fontSize: 22, fontWeight: 'bold'}}>
-                  {route?.params?.name}
+                  {route?.params?.firstName}
                 </Text>
                 <View
                   style={{
@@ -137,10 +142,9 @@ const HandleLikeScreen = () => {
               </View>
             </View>
 
-            <View style={{marginVertical: 15}}>
-              {/* images carousel */}
+            <View style={{marginTop: 20}}>
               <View>
-                {images?.length > 0 && (
+                {route?.params?.imageUrls.length > 0 && (
                   <View>
                     <Carousel
                       data={images}
@@ -153,8 +157,7 @@ const HandleLikeScreen = () => {
                 )}
               </View>
 
-              {/* profile details */}
-              {/* <View style={{marginTop: 20}}>
+              <View style={{marginTop: 20}}>
                 <View
                   style={{
                     backgroundColor: 'white',
@@ -182,7 +185,9 @@ const HandleLikeScreen = () => {
                         size={22}
                         color="black"
                       />
-                      <Text style={{fontSize: 15}}>23</Text>
+                      <Text style={{fontSize: 15}}>
+                        {calculateAge(route?.params?.dateOfBirth)}
+                      </Text>
                     </View>
 
                     <View
@@ -193,7 +198,7 @@ const HandleLikeScreen = () => {
                       }}>
                       <Ionicons name="person-outline" size={20} color="black" />
                       <Text style={{fontSize: 15}}>
-                        {route?.params?.currentProfile?.gender}
+                        {route?.params?.gender}
                       </Text>
                     </View>
 
@@ -204,9 +209,7 @@ const HandleLikeScreen = () => {
                         gap: 10,
                       }}>
                       <Ionicons name="magnet-outline" size={20} color="black" />
-                      <Text style={{fontSize: 15}}>
-                        {route?.params?.currentProfile?.type}
-                      </Text>
+                      <Text style={{fontSize: 15}}>{route?.params?.type}</Text>
                     </View>
 
                     <View
@@ -217,7 +220,9 @@ const HandleLikeScreen = () => {
                       }}>
                       <Octicons name="home" size={20} color="black" />
                       <Text style={{fontSize: 15}}>
-                        {route?.params?.currentProfile?.hometown}
+                        {route?.params?.hometown
+                          ? route?.params?.hometown
+                          : 'N/A'}
                       </Text>
                     </View>
                   </View>
@@ -233,7 +238,7 @@ const HandleLikeScreen = () => {
                       paddingBottom: 10,
                     }}>
                     <Ionicons name="bag-add-outline" size={20} color="black" />
-                    <Text>{route?.params?.currentProfile?.profession}</Text>
+                    <Text>{route?.params?.profession}</Text>
                   </View>
 
                   <View
@@ -251,7 +256,7 @@ const HandleLikeScreen = () => {
                       size={22}
                       color="black"
                     />
-                    <Text>{route?.params?.currentProfile?.education}</Text>
+                    <Text>{route?.params?.education}</Text>
                   </View>
 
                   <View
@@ -265,7 +270,7 @@ const HandleLikeScreen = () => {
                       paddingBottom: 10,
                     }}>
                     <Ionicons name="book-outline" size={20} color="black" />
-                    <Text>{route?.params?.currentProfile?.religion}</Text>
+                    <Text>{route?.params?.religion}</Text>
                   </View>
 
                   <View
@@ -279,7 +284,7 @@ const HandleLikeScreen = () => {
                       paddingBottom: 10,
                     }}>
                     <Ionicons name="home-outline" size={20} color="black" />
-                    <Text>{route?.params?.currentProfile?.location}</Text>
+                    <Text>{route?.params?.location}</Text>
                   </View>
                   <View
                     style={{
@@ -292,43 +297,11 @@ const HandleLikeScreen = () => {
                       paddingBottom: 10,
                     }}>
                     <Feather name="search" size={20} color="black" />
-                    <Text>{route?.params?.currentProfile?.lookingFor}</Text>
+                    <Text>{route?.params?.lookingFor}</Text>
                   </View>
                 </View>
-              </View> */}
+              </View>
             </View>
-          </View>
-        </View>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
-            gap: 10,
-            marginTop: 20,
-          }}>
-          <View>
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>
-              Want to match? Click the message button?
-            </Text>
-          </View>
-          <View>
-            <Pressable
-              onPress={match}
-              style={{
-                backgroundColor: 'white',
-                width: 50,
-                height: 50,
-                borderRadius: 25,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <MaterialCommunityIcons
-                name="message-outline"
-                size={25}
-                color="#C5B358"
-              />
-            </Pressable>
           </View>
         </View>
       </ScrollView>
@@ -336,4 +309,4 @@ const HandleLikeScreen = () => {
   );
 };
 
-export default HandleLikeScreen;
+export default MatchedProfileDetailsScreen;

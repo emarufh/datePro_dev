@@ -36,6 +36,7 @@ import {ActivityIndicator, View} from 'react-native';
 import {AuthContext} from '../context/AuthContext';
 import ReligionScreen from '../screens/ReligionScreen';
 import AnimationScreen from '../screens/AnimationScreen';
+import MatchedProfileDetailsScreen from '../screens/MatchedProfileDetailsScreen';
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -261,6 +262,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="HandleLike"
           component={HandleLikeScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="MatchedProfileDetails"
+          component={MatchedProfileDetailsScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen name="ChatRoom" component={ChatRoomScreen} />

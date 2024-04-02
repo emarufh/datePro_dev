@@ -3,11 +3,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import 'core-js/stable/atob';
 import {AuthContext} from '../context/AuthContext';
 import axios from 'axios';
-import Feather from 'react-native-vector-icons/Feather';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {CheckBadgeIcon} from 'react-native-heroicons/solid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {jwtDecode} from 'jwt-decode';
@@ -37,7 +33,7 @@ const ProfileScreen = () => {
 
   const {token, isLoading, setToken} = useContext(AuthContext);
 
-  console.log(token);
+  // console.log(token);
 
   useEffect(() => {
     // Check if the token is set and not in loading state
@@ -87,6 +83,25 @@ const ProfileScreen = () => {
     }
   };
 
+  function calculateAge(dateOfBirth) {
+    if (!dateOfBirth) return null;
+
+    // Split the date string into day, month, and year
+    const parts = dateOfBirth.split('/');
+    const dob = new Date(parts[2], parts[1] - 1, parts[0]); // Month is 0-based
+
+    // Calculate the difference in milliseconds between the current date and the date of birth
+    const diffMs = Date.now() - dob.getTime();
+
+    // Convert the difference to a Date object
+    const ageDate = new Date(diffMs);
+
+    // Extract the year part from the Date object and subtract 1970 to get the age
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+    return age;
+  }
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white', paddingTop: 70}}>
       <View
@@ -107,21 +122,26 @@ const ProfileScreen = () => {
               alignSelf: 'center',
             }}
             source={{
-              uri: currentProfile?.imageUrls[2],
+              uri: currentProfile?.imageUrls[0],
             }}
           />
         </View>
+
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            gap: 10,
+            gap: 6,
             marginTop: 12,
           }}>
           <Text style={{fontSize: 24, fontWeight: '600'}}>
-            {currentProfile?.firstName} {currentProfile?.lastName}
+            {currentProfile?.firstName}
+            {','}
           </Text>
-          <MaterialIcons name="verified" size={22} color="blue" />
+          <Text style={{fontSize: 24, fontWeight: '600'}}>
+            {calculateAge(currentProfile?.dateOfBirth)}
+          </Text>
+          <CheckBadgeIcon size={25} color={'#3B82F6'} />
         </View>
       </View>
 
