@@ -17,8 +17,9 @@ import {
 } from '../registrationUtils';
 
 const GenderScreen = () => {
-  const [gender, setGender] = useState('');
   const navigation = useNavigation();
+  const [gender, setGender] = useState('');
+
   useEffect(() => {
     getRegistrationProgress('Gender').then(progressData => {
       if (progressData) {
@@ -37,7 +38,7 @@ const GenderScreen = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{marginTop: 90, marginHorizontal: 20}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View
@@ -85,7 +86,7 @@ const GenderScreen = () => {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-            <Text style={{fontWeight: '500', fontSize: 15}}>Men</Text>
+            <Text style={{fontWeight: '500', fontSize: 15}}>Man</Text>
             <Pressable onPress={() => setGender('Men')}>
               <FontAwesome
                 name="circle"
@@ -102,7 +103,7 @@ const GenderScreen = () => {
               justifyContent: 'space-between',
               marginVertical: 12,
             }}>
-            <Text style={{fontWeight: '500', fontSize: 15}}>Women</Text>
+            <Text style={{fontWeight: '500', fontSize: 15}}>Woman</Text>
             <Pressable onPress={() => setGender('Women')}>
               <FontAwesome
                 name="circle"

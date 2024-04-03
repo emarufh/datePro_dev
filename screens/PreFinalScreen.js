@@ -17,15 +17,7 @@ const PreFinalScreen = () => {
 
   const {token, isLoading, setToken} = useContext(AuthContext);
 
-  console.log(token);
-
-  // useEffect(() => {
-  //   // Check if the token is set and not in loading state
-  //   if (token) {
-  //     // Navigate to the main screen
-  //     navigation.navigate('MainStack', {screen: 'Main'});
-  //   }
-  // }, [token, navigation]);
+  // console.log(token);
 
   const getAllUserData = async () => {
     try {
@@ -125,26 +117,29 @@ const PreFinalScreen = () => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <View style={{marginTop: 80}}>
+      <View
+        style={{marginTop: 80, alignItems: 'center', justifyContent: 'center'}}>
         <Text
           style={{
-            fontSize: 35,
+            fontSize: 32,
             fontWeight: 'bold',
             fontFamily: 'GeezaPro-Bold',
             marginLeft: 20,
+            textAlign: 'center',
           }}>
           All set to register
         </Text>
         <Text
           style={{
-            fontSize: 33,
+            fontSize: 28,
             fontWeight: 'bold',
             fontFamily: 'GeezaPro-Bold',
             marginLeft: 20,
             marginRight: 10,
-            marginTop: 10,
+            marginTop: 20,
+            textAlign: 'center',
           }}>
-          Setting up your profile for you
+          Setting up a profile for you
         </Text>
       </View>
 

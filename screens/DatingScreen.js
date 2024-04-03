@@ -49,7 +49,7 @@ const DatingScreen = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{marginTop: 90, marginHorizontal: 20}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View

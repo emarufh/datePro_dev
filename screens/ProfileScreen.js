@@ -111,20 +111,22 @@ const ProfileScreen = () => {
           justifyContent: 'center',
         }}>
         <View>
-          <Image
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 50,
-              resizeMode: 'cover',
-              borderColor: '#662d91',
-              borderWidth: 3,
-              alignSelf: 'center',
-            }}
-            source={{
-              uri: currentProfile?.imageUrls[0],
-            }}
-          />
+          {currentProfile?.imageUrls !== '' ? (
+            <Image
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                resizeMode: 'cover',
+                borderColor: '#662d91',
+                borderWidth: 3,
+                alignSelf: 'center',
+              }}
+              source={{
+                uri: currentProfile?.imageUrls[0],
+              }}
+            />
+          ) : null}
         </View>
 
         <View

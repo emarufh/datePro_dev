@@ -10,12 +10,9 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
-import {
-  getRegistrationProgress,
-  saveRegistrationProgress,
-} from '../registrationUtils';
+import {saveRegistrationProgress} from '../registrationUtils';
 
 const PasswordScreen = () => {
   const [password, setPassword] = useState('');
@@ -31,7 +28,7 @@ const PasswordScreen = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{marginTop: 90, marginHorizontal: 20}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View
@@ -44,7 +41,7 @@ const PasswordScreen = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Fontisto name="email" size={26} color="black" />
+            <MaterialIcons name="password" size={26} color="black" />
           </View>
           <Image
             style={{width: 100, height: 40}}

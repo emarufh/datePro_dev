@@ -207,7 +207,7 @@ const LoginScreen = () => {
               padding: 15,
               marginTop: 10,
             }}
-            onPress={() => navigation.navigate('BasicInfo')}>
+            onPress={() => navigation.navigate('Name')}>
             <Text style={{fontSize: 16, fontWeight: 600}}>
               Don't have an account? Sign Up
             </Text>

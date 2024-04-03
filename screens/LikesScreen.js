@@ -129,10 +129,10 @@ const LikesScreen = () => {
               fontWeight: '400',
               color: option == 'Your Type' ? 'white' : '#808080',
             }}>
-            your type
+            Your Type
           </Text>
         </Pressable>
-        <Pressable
+        {/* <Pressable
           onPress={() => setOption('Last Active')}
           style={{
             borderColor: option == 'Last Active' ? 'transparent' : '#808080',
@@ -151,7 +151,7 @@ const LikesScreen = () => {
             }}>
             Last Active
           </Text>
-        </Pressable>
+        </Pressable> */}
         <Pressable
           onPress={() => setOption('Nearby')}
           style={{

@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
@@ -53,7 +52,7 @@ const PhotoScreen = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={{marginTop: 90, marginHorizontal: 20}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View
@@ -160,7 +159,7 @@ const PhotoScreen = () => {
         </View>
 
         <View style={{marginVertical: 10}}>
-          <Text style={{color: 'gray', fontSize: 15}}>Drag to reorder</Text>
+          {/* <Text style={{color: 'gray', fontSize: 15}}>Drag to reorder</Text> */}
           <Text
             style={{
               fontSize: 15,
@@ -221,5 +220,3 @@ const PhotoScreen = () => {
 };
 
 export default PhotoScreen;
-
-const styles = StyleSheet.create({});

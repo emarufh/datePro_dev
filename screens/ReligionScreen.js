@@ -5,8 +5,10 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Pressable,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
@@ -69,7 +71,7 @@ const ReligionScreen = () => {
           What's your Religion?
         </Text>
 
-        <TextInput
+        {/* <TextInput
           value={religion}
           onChangeText={text => setReligion(text)}
           autoFocus={true}
@@ -85,7 +87,70 @@ const ReligionScreen = () => {
           }}
           placeholder="Enter your religion"
           placeholderTextColor={'#BEBEBE'}
-        />
+        /> */}
+
+        <View style={{marginTop: 30, flexDirection: 'column', gap: 12}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={{fontWeight: '500', fontSize: 15}}>Islam</Text>
+            <Pressable onPress={() => setReligion('Islam')}>
+              <FontAwesome
+                name="circle"
+                size={26}
+                color={religion == 'Islam' ? '#581845' : '#F0F0F0'}
+              />
+            </Pressable>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={{fontWeight: '500', fontSize: 15}}>Hindu</Text>
+            <Pressable onPress={() => setReligion('Hindu')}>
+              <FontAwesome
+                name="circle"
+                size={26}
+                color={religion == 'Hindu' ? '#581845' : '#F0F0F0'}
+              />
+            </Pressable>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={{fontWeight: '500', fontSize: 15}}>Christianity</Text>
+            <Pressable onPress={() => setReligion('Christianity')}>
+              <FontAwesome
+                name="circle"
+                size={26}
+                color={religion == 'Christianity' ? '#581845' : '#F0F0F0'}
+              />
+            </Pressable>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={{fontWeight: '500', fontSize: 15}}>Buddhist</Text>
+            <Pressable onPress={() => setReligion('Buddhist')}>
+              <FontAwesome
+                name="circle"
+                size={26}
+                color={religion == 'Buddhist' ? '#581845' : '#F0F0F0'}
+              />
+            </Pressable>
+          </View>
+        </View>
 
         <TouchableOpacity
           onPress={handleNext}

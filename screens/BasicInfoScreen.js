@@ -8,7 +8,7 @@ const BasicInfoScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View
         style={{marginTop: 80, alignItems: 'center', justifyContent: 'center'}}>
         <Text

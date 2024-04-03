@@ -37,15 +37,17 @@ export default function DatesCard({item, handleClick}) {
     <View className="relative">
       <TouchableWithoutFeedback onPress={() => handleClick(item)}>
         <>
-          <Image
-            source={{uri: item.imageUrls[1]}}
-            style={{
-              width: width * 0.8,
-              height: height * 0.75,
-            }}
-            resizeMode="cover"
-            className="rounded-3xl"
-          />
+          {item.imageUrls !== '' ? (
+            <Image
+              source={{uri: item.imageUrls[1]}}
+              style={{
+                width: width * 0.8,
+                height: height * 0.75,
+              }}
+              resizeMode="cover"
+              className="rounded-3xl"
+            />
+          ) : null}
           {/* <Pressable
             onPress={() =>
               navigation.navigate('SendLike', {
